@@ -3,262 +3,242 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Instagram 模擬主畫面</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <title>社會蜂巢計畫註冊</title>
   <style>
     body {
-      background-color: #fafafa;
+      margin: 0;
+      font-family: "Segoe UI", "Noto Sans TC", sans-serif;
+      background: linear-gradient(to bottom, #fff9c4, #fffde7);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      color: #333;
     }
-    .story-list {
-      overflow-x: auto;
-      white-space: nowrap;
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
-    .story-list::-webkit-scrollbar {
-      display: none;
-    }
-    .story-item {
-      display: inline-block;
-      width: 70px;
+
+    nav, footer {
+      background-color: #000;
+      color: #fff;
+      padding: 1.5rem;
       text-align: center;
-      margin-right: 10px;
-      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     }
-    .story-border {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      padding: 2px;
-      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-      animation: rotate 4s linear infinite;
+
+    nav h1 {
+      margin: 0;
+      font-size: 2rem;
     }
-    @keyframes rotate {
-      0% { background-position: 0% 50%; }
-      100% { background-position: 100% 50%; }
+
+    nav p {
+      margin: 0.5rem 0 0;
+      font-size: 1.1rem;
+      color: #fdd835;
     }
-    .story-img {
+
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    form {
+      background: linear-gradient(to bottom right, #fffde7, #fef5c0);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      padding: 2rem 3rem;
+      border-radius: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 2px solid white;
+      max-width: 750px;
     }
-    .story-name {
-      font-size: 12px;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
-    }
-    .navbar-icon {
-      font-size: 20px;
-      padding: 0 10px;
-    }
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      background: white;
-      border-top: 1px solid #ddd;
-      padding: 6px 0;
-    }
-    .post-card {
+
+    fieldset {
       border: none;
-      border-radius: 0;
-      margin-bottom: 16px;
+      padding: 0;
+      margin: 0;
     }
-    .post-header {
+
+    legend {
+      font-weight: bold;
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      color: #444;
+    }
+
+    .form-group {
       display: flex;
-      align-items: center;
-      padding: 10px;
+      flex-direction: column;
     }
-    .post-header img {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      margin-right: 10px;
+
+    label {
+      margin-bottom: 0.5rem;
+      font-weight: 600;
     }
-    .notif-badge {
-      font-size: 10px;
-      background: red;
-      color: white;
-      border-radius: 50%;
-      padding: 2px 5px;
-      position: absolute;
-      top: -4px;
-      right: -4px;
-    }
-    .progress-bar-story {
-      height: 4px;
+
+    input, textarea {
+      padding: 0.75rem 1rem;
+      border: 2px solid #ccc;
+      border-radius: 12px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
       background-color: #fff;
-      animation: progressStory 5s linear forwards;
     }
-    @keyframes progressStory {
-      0% { width: 0%; }
-      100% { width: 100%; }
+
+    input:focus, textarea:focus {
+      border-color: #fbc02d;
+      box-shadow: 0 0 6px rgba(251, 192, 45, 0.5);
+      outline: none;
     }
-    .story-header {
+
+    .two-column {
       display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px;
+      flex-wrap: wrap;
+      gap: 2rem;
     }
-    .story-header img {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
+
+    .column {
+      flex: 1 1 300px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
-    .story-actions {
+
+    .character-select {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      padding: 10px;
-      border-top: 1px solid rgba(255,255,255,0.1);
+      gap: 1rem;
     }
-    .story-actions input {
-      background-color: rgba(255,255,255,0.1);
+
+    .character {
+      border: 2px dashed #000;
+      padding: 1rem;
+      border-radius: 12px;
+      flex: 1;
+      text-align: center;
+      background-color: #fff;
+      cursor: pointer;
+      transition: transform 0.3s, background-color 0.3s;
+      font-weight: 500;
+    }
+
+    .character:hover {
+      transform: scale(1.05);
+      background-color: #fff9c4;
+    }
+
+    button {
+      padding: 1rem;
+      background-color: #000;
+      color: #fff;
       border: none;
-      color: white;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      font-weight: bold;
+      letter-spacing: 0.05em;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    button:hover {
+      background-color: #222;
+      transform: scale(1.02);
+    }
+
+    .login-link {
+      text-align: center;
+      font-size: 0.95rem;
+      color: #444;
+    }
+
+    .login-link a {
+      color: #000;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .two-column {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
 <body>
-
-  <!-- 上方導航欄 -->
-  <div class="d-flex justify-content-between align-items-center px-3 py-2 border-bottom bg-white">
-    <div class="d-flex align-items-center">
-      <h5 class="mb-0">Instagram</h5>
-      <i class="fa-solid fa-chevron-down ms-2"></i>
-    </div>
-    <div class="input-group w-50">
-      <input type="text" class="form-control form-control-sm" placeholder="搜尋">
-    </div>
-    <i class="fa-regular fa-heart position-relative">
-      <span class="notif-badge">1</span>
-    </i>
-  </div>
-
-  <!-- 限時動態列 -->
-  <div class="bg-white py-2 px-3">
-    <div class="story-list">
-      <script>
-        const storyUsers = ["限時動態", "ration_418", "torchik37", "lou__is.30", "lucas_glcr", "查看更多", "catlover", "dogwalker", "design_guy", "travelgal", "foodie" ];
-        document.write(
-          storyUsers.map((name, i) => `
-            <div class='story-item' onclick='showStory(${i + 1}, "${name}")'>
-              <div class='story-border mx-auto'>
-                <img src='https://picsum.photos/60?random=${i + 1}' class='story-img' />
-              </div>
-              <div class='story-name mt-1'>${name}</div>
+  <nav>
+    <h1>WELCOME TO THE HIVE!</h1>
+    <p>讓我們一起擴散連結，共創社會新樣貌</p>
+  </nav>
+  <main>
+    <form id="registerForm">
+      <fieldset>
+        <legend>基本資訊</legend>
+        <div class="two-column">
+          <div class="column">
+            <div class="form-group">
+              <label for="username">使用者名稱 <span style="color:red">*</span></label>
+              <input type="text" id="username" name="username" required placeholder="請輸入您的使用者名稱" />
             </div>
-          `).join('')
-        );
-      </script>
-    </div>
-  </div>
-
-  <!-- 貼文 -->
-  <div class="container mt-3 pb-5">
-    <div class="card post-card">
-      <div class="post-header">
-        <img src="https://picsum.photos/32?random=7" alt="頭像">
-        <div>
-          <div class="fw-bold">ntnuartsfestival</div>
-          <div class="text-muted small">7小時前</div>
+            <div class="form-group">
+              <label for="email">電子郵件 <span style="color:red">*</span></label>
+              <input type="email" id="email" name="email" required placeholder="example@domain.com" />
+            </div>
+            <div class="form-group">
+              <label for="password">密碼 <span style="color:red">*</span></label>
+              <input type="password" id="password" name="password" required placeholder="請輸入密碼" />
+            </div>
+            <div class="form-group">
+              <label for="confirmPassword">確認密碼 <span style="color:red">*</span></label>
+              <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="再次輸入密碼" />
+            </div>
+          </div>
+          <div class="column">
+            <div class="form-group">
+              <label for="birth">生日</label>
+              <input type="date" id="birth" name="birth" />
+            </div>
+            <div class="form-group">
+              <label>性別</label>
+              <label><input type="radio" name="gender" value="male"> 男</label>
+              <label><input type="radio" name="gender" value="female"> 女</label>
+              <label><input type="radio" name="gender" value="other"> 其他</label>
+            </div>
+            <div class="form-group">
+              <label>興趣</label>
+              <label><input type="checkbox" name="hobbies" value="reading"> 閱讀</label>
+              <label><input type="checkbox" name="hobbies" value="sports"> 運動</label>
+              <label><input type="checkbox" name="hobbies" value="music"> 音樂</label>
+            </div>
+            <div class="form-group">
+              <label for="bio">自我介紹</label>
+              <textarea id="bio" name="bio" rows="4" placeholder="簡單介紹一下自己吧！"></textarea>
+            </div>
+          </div>
         </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>選擇你的 Hive 角色</legend>
+        <div class="character-select">
+          <div class="character">🧠 策略師</div>
+          <div class="character">🎨 創意者</div>
+          <div class="character">🤝 連結者</div>
+        </div>
+      </fieldset>
+
+      <button type="submit">JOIN THE HIVE 🐝</button>
+      <div class="login-link">
+        已經有帳號了？<a href="#">立即登入</a>
       </div>
-      <img src="https://picsum.photos/600/400?random=99" class="img-fluid">
-      <div class="p-2">
-        <div class="mb-2">
-          <i class="fa-regular fa-heart me-3"></i>
-          <i class="fa-regular fa-comment me-3"></i>
-          <i class="fa-regular fa-bookmark"></i>
-        </div>
-        <div class="fw-bold small">5,123 個讚</div>
-        <div class="small"><span class="fw-bold">ntnuartsfestival</span> 定價完成，敬請期待！</div>
-        <div class="mt-2">
-          <input type="text" class="form-control form-control-sm" placeholder="新增留言……">
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 限時動態 Modal（自訂） -->
-  <div class="modal fade" id="storyModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content bg-dark text-white">
-        <div class="progress">
-          <div class="progress-bar-story" role="progressbar"></div>
-        </div>
-        <div class="story-header">
-          <img id="storyUserAvatar" src="" alt="avatar">
-          <strong id="storyUserName">使用者名稱</strong>
-        </div>
-        <img id="storyImage" src="" class="img-fluid" alt="story image">
-        <div class="story-actions">
-          <input type="text" class="form-control form-control-sm" placeholder="傳送訊息…">
-          <i class="fa-regular fa-heart ms-3"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 底部導航列 -->
-  <div class="bottom-nav d-flex justify-content-around">
-    <i class="fa-solid fa-house navbar-icon"></i>
-    <i class="fa-regular fa-compass navbar-icon"></i>
-    <i class="fa-solid fa-clapperboard navbar-icon"></i>
-    <i class="fa-regular fa-square-plus navbar-icon"></i>
-    <div class="position-relative">
-      <i class="fa-regular fa-heart navbar-icon"></i>
-      <span class="notif-badge">8</span>
-    </div>
-    <img src="https://picsum.photos/30?random=8" class="rounded-circle" style="width: 24px; height: 24px;">
-  </div>
-
-  <script>
-    const storyImages = [
-      'https://picsum.photos/400/700?random=101',
-      'https://picsum.photos/400/700?random=102',
-      'https://picsum.photos/400/700?random=103'
-    ];
-
-    let currentStoryIndex = 0;
-    let storyTimer;
-
-    function showStory(index, name) {
-      currentStoryIndex = 0;
-      document.getElementById('storyUserName').innerText = name;
-      document.getElementById('storyUserAvatar').src = `https://picsum.photos/60?random=${index}`;
-      document.getElementById('storyImage').src = storyImages[currentStoryIndex];
-      clearInterval(storyTimer);
-      startStoryCycle(index);
-      const modal = new bootstrap.Modal(document.getElementById('storyModal'));
-      modal.show();
-    }
-
-    function startStoryCycle(index) {
-      const bar = document.querySelector('.progress-bar-story');
-      bar.style.animation = 'none';
-      void bar.offsetWidth;
-      bar.style.animation = null;
-
-      storyTimer = setInterval(() => {
-        currentStoryIndex++;
-        if (currentStoryIndex >= storyImages.length) {
-          clearInterval(storyTimer);
-          bootstrap.Modal.getInstance(document.getElementById('storyModal')).hide();
-        } else {
-          document.getElementById('storyImage').src = storyImages[currentStoryIndex];
-          bar.style.animation = 'none';
-          void bar.offsetWidth;
-          bar.style.animation = null;
-        }
-      }, 5000);
-    }
-  </script>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    </form>
+  </main>
+  <footer>
+    <p>&copy; 2025 社會蜂巢計畫 | 共創連結社會，從你我開始</p>
+  </footer>
 </body>
 </html>
